@@ -23,14 +23,14 @@ else
     {       
         $errors = []; 
          
-        if(!isset($_POST['user_name']))
+        if(!$_POST['user_name'])
         {
-            $errors[] = 'The username field must not be empty.';
+            array_push($errors, 'The username field must not be empty.');
         }
          
-        if(!isset($_POST['user_pass']))
+        if(!$_POST['user_pass'])
         {
-            $errors[] = 'The password field must not be empty.';
+            array_push($errors, 'The password field must not be empty.');
         }
          
         if(!empty($errors)) 
@@ -45,14 +45,15 @@ else
         }
         else
         {
-            $username = mysql_real_escape_string($_POST['user_name']);
-            $password = $_POST['user_pass'];
+            $username = htmlentities(trim($_POST['user_name']));
+            $password = htmlentities(trim($_POST['user_pass']));
+
+            $password = hash('sha256', $password);
                     
-            $sql = "SELECT id, name, password FROM user WHERE "
+            $sql = "SELECT id, name, password, is_admin FROM users WHERE "
                     . "name='$username' AND password='$password'";
                                               
             $result = $conn->query($sql);
-            
             
             if(!$result)
             {
@@ -67,11 +68,14 @@ else
                     while($row = $result->fetch_assoc())
                     {
                         $_SESSION['user_id']    = $row['id'];
-                        $_SESSION['user_name']  = $row['name'];                   
+                        $_SESSION['user_name']  = $row['name'];
+                        $_SESSION['is_admin']  = $row['is_admin'];
                     }
                      
                     echo 'Welcome, ' . $_SESSION['user_name'] . 
-                            '. <a href="index.php">Proceed to the main page</a>.';                           
+                            '. <a href="index.php">Proceed to the main page</a>.';
+
+                    var_dump($_SESSION);
                 }
                 else
                 {

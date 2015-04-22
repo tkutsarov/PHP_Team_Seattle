@@ -3,7 +3,7 @@
     $server = 'localhost';
     $dbUsername = 'root';
     $dbPassword = '';
-    $database = 'softuni_forum';
+    $database = 'forum_test';
 
     $conn = new mysqli($server, $dbUsername, $dbPassword, $database);
     
