@@ -1,6 +1,7 @@
 body {
     background-color: #4E4E4E;
     text-align: center;         /* make sure IE centers the page too */
+    font: 16px Georgia, arial, sans-serif;
 }
  
 #wrapper {
@@ -74,6 +75,7 @@ h1, #footer {
     font-family: Arial;
     color: #F1F3F1;
 }
+
  
 h3 {margin: 0; padding: 0;}
  
@@ -111,9 +113,4 @@ h3 {margin: 0; padding: 0;}
  
 .post-content {
     padding: 30px;
-}
- 
-textarea {
-    width: 500px;
-    height: 200px;
 }
