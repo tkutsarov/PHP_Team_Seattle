@@ -2,17 +2,20 @@
 
 include 'connect.php';
 include 'header.php';
- 
-echo '<h3>Sign up</h3>';
 
-if($_SERVER['REQUEST_METHOD'] != 'POST'){   
-    echo '<form method="post" action="">
-        Username: <input type="text" name="user_name" /><br>
-        Password: <input type="password" id="password" name="user_pass"><br>
-        Password again: <input type="password" id="confirm-pass" name="user_pass_check"><br>
-        E-mail: <input type="email" id="email" name="user_email"><br>
-        <input type="submit" id="registerButton" value="Register" />
-     </form>';
+if($_SERVER['REQUEST_METHOD'] != 'POST'){
+    if(empty($_SESSION)) {
+        echo '<h3>Sign up</h3>';
+        echo '<form method="post" action="">
+                Username: <input type="text" name="user_name" /><br>
+                Password: <input type="password" id="password" name="user_pass"><br>
+                Password again: <input type="password" id="confirm-pass" name="user_pass_check"><br>
+                E-mail: <input type="email" id="email" name="user_email"><br>
+                <input type="submit" id="registerButton" value="Register" />
+                </form>';
+    } else {
+        echo 'You already logged in. You must first <a href="logout.php">Log out</a> and then try to register!!!';
+    }
 } else {
     
     $errors = array();

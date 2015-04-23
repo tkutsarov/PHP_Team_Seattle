@@ -3,20 +3,19 @@
 include 'connect.php';
 include 'header.php';
 
-if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
+if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
 {
     echo 'You are already signed in, you can <a href="logout.php">log out</a> if you want.';
 }
 else
 {
-    if($_SERVER['REQUEST_METHOD'] != 'POST')
-    {
+    if($_SERVER['REQUEST_METHOD'] != 'POST') {
         echo '<h3>Sign in</h3>';
         echo '<form method="post" action="">
-            Username: <input type="text" name="user_name" />
-            Password: <input type="password" name="user_pass">
-            <input type="submit" value="Sign in" />
-         </form>';
+                Username: <input type="text" name="user_name" />
+                Password: <input type="password" name="user_pass">
+                <input type="submit" value="Sign in" />
+                </form>';
     }
     else
     {       
