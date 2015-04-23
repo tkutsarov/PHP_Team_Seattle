@@ -3,11 +3,9 @@
 include 'connect.php';
 include 'header.php';
 
-<<<<<<< HEAD
-if (!isset($_SESSION['logged_in'])) {
-=======
+
 if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
->>>>>>> a7bbe9adbd6d5d04afd82591bbc74c56285b8256
+
 
     //TODO A guest user must be able to write too.
     echo '<p>You must <a href="login.php">login</a> to create topic</p>';
@@ -67,7 +65,7 @@ if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
                     topic_by,
                     topic_tags) VALUES('$subject', '$content', '$cat', '$userId', '$tags')";
         var_dump($sql);
-            //$result = $conn->query($sql);
+        $result = $conn->query($sql);
 
         if(!$result)
         {
