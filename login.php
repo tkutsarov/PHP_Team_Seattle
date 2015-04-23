@@ -2,9 +2,7 @@
 
 include 'connect.php';
 include 'header.php';
- 
-echo '<h3>Sign in</h3>';
- 
+
 if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 {
     echo 'You are already signed in, you can <a href="logout.php">log out</a> if you want.';
@@ -13,6 +11,7 @@ else
 {
     if($_SERVER['REQUEST_METHOD'] != 'POST')
     {
+        echo '<h3>Sign in</h3>';
         echo '<form method="post" action="">
             Username: <input type="text" name="user_name" />
             Password: <input type="password" name="user_pass">
@@ -54,7 +53,8 @@ else
                     . "name='$username' AND password='$password'";
                                               
             $result = $conn->query($sql);
-            
+            //var_dump($_POST);
+
             if(!$result)
             {
                 echo 'Unsuccessful signing in.';
@@ -75,7 +75,7 @@ else
                     echo 'Welcome, ' . $_SESSION['user_name'] . 
                             '. <a href="index.php">Proceed to the main page</a>.';
 
-                    var_dump($_SESSION);
+                    //var_dump($_SESSION);
                 }
                 else
                 {

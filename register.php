@@ -5,7 +5,6 @@ include 'header.php';
  
 echo '<h3>Sign up</h3>';
 
-//var_dump($_SERVER);
 if($_SERVER['REQUEST_METHOD'] != 'POST'){   
     echo '<form method="post" action="">
         Username: <input type="text" name="user_name" /><br>

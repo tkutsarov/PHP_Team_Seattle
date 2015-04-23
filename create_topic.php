@@ -3,14 +3,13 @@
 include 'connect.php';
 include 'header.php';
 
-echo "Create new forum topic.";
-
 if($_SERVER['REQUEST_METHOD'] != 'POST'){
     echo '<form method="post">
+        <h3>Create a new topic</h3><br />
         Category name: <input type="text" name="cat_name" /><br />
-        Category description:<br />
-         <textarea name="cat_description" /></textarea>
-        <input type="submit" value="Add category" />
+        Topic: <br />
+         <textarea name="cat_description" /></textarea><br />
+        <input type="submit" value="Create topic" />
         </form>';
 }
 
