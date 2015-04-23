@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>PHP-MySQL forum</title>
     <link rel="stylesheet" href="./style/main.css" type="text/css">
-        <link rel="stylesheet" href="./style/create_topic.css" type="text/css">
+    <link rel="stylesheet" href="./style/create_topic.css" type="text/css">    
     <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="js/register.js"></script>
 </head>
