@@ -31,17 +31,17 @@
                 echo '<div class="category-description">' . $row['cat_description'] . '</div>';
                 
                 $sqlTopics = "SELECT
-                            id,
-                            topic_subject,
-                            topic_description,
-                            topic_date,
-                            topic_cat,
-                            topic_by,
-                            visits
-                        FROM
-                            topics
-                        WHERE 
-                            topic_cat =" . $row['id'];
+                                    id,
+                                    topic_subject,
+                                    topic_description,
+                                    topic_date,
+                                    topic_cat,
+                                    topic_by,
+                                    visits
+                                FROM
+                                    topics
+                                WHERE 
+                                    topic_cat =" . $row['id'];
                 
                 $resultTopics = $conn->query($sqlTopics);
                       
