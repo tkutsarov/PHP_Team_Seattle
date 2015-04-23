@@ -3,10 +3,11 @@
 include 'connect.php';
 include 'header.php';
 
-if (!isset($_SESSION['signed_in'])) {
+if (!isset($_SESSION['logged_in'])) {
 
     //TODO A guest user must be able to write too.
     echo '<p>You must <a href="login.php">login</a> to create topic</p>';
+    
 } else {
     echo "<h2>Create new topic<h2>";
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {

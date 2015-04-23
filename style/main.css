@@ -114,3 +114,46 @@ h3 {margin: 0; padding: 0;}
 .post-content {
     padding: 30px;
 }
+
+
+
+div#categories{
+    margin-top: 15px;
+}
+div.left-side{   
+    border: 1px solid black;
+    background-color: menu;
+    padding: 5px;
+    margin-bottom:1px;
+}
+
+div.category-heading{
+    color: #B40E1F;
+    font-size: 150%;
+    font-weight: bold; 
+}
+
+div.category-description,div.topic-creation {
+    font-style: italic;
+    font-size:80%;
+    color: #00728B;
+}
+
+div.topic-heading{
+    font-size: 120%;
+    padding-left: 20px;
+    color: #032472;    
+}
+
+div.topic-heading:hover{
+    background-color: lightskyblue;
+}
+
+div.topic-heading > a{
+    display: inline;
+}
+
+div.topic-creation{
+    float:right;
+    display: inline;
+}

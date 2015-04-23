@@ -28,5 +28,5 @@
                    
                 ?>
             </div>
-         </div>
-    <div id="content">
+        </div>
+        <div id="content">
