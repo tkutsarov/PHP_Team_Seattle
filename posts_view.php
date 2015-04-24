@@ -2,12 +2,14 @@
     include 'connect.php';
     include 'header.php';
     
+    //get the ID only if the user has clicked on a topic.
     if(isset($_GET['id'])){
         $_SESSION['topic_id'] = $_GET['id'];
     }
          
     $topicID = $_SESSION['topic_id'];
     
+    // get the topic that has been chosen and print it on the top as a heading.
     $sql = "SELECT
                 id,
                 topic_subject,
@@ -37,7 +39,8 @@
                           
             echo '<div class="topic-heading">' . $row['topic_subject'] . '</div>';
             echo '<div class="category-description">' . $row['topic_description'] . '</div>';
-              
+            
+            // get the post for that topic
             $sqlPosts = "SELECT
                                 id,
                                 post_content,
@@ -53,7 +56,9 @@
 
             $resultPosts = $conn->query($sqlPosts);
             
-            while($rowPost = $resultPosts->fetch_assoc()){  
+            while($rowPost = $resultPosts->fetch_assoc()){ 
+                // If the user is a guest /not logged in registered user/ display the given 
+                // username and password.
                 if($rowPost['post_by'] == 21){                                        
                     $postedByGuest = $rowPost['guest'];
                     echo '<div>' . 
@@ -61,6 +66,7 @@
                         $rowPost['post_date'] . '</div><div class="topic-creation">post by:' .
                             $postedByGuest . '</div></div>';
                 } else{
+                    // If the user is logged in get the data from the users table
                     $sqlPostedBy = "SELECT
                                             name
                                         FROM
@@ -83,12 +89,15 @@
     }     
 ?>
 
+<!-- display the form for entering a new post for the given topic -->
 <form method="post" action="posts_view.php">
     <?php 
+        // If the user is logged in, get the username and email and fill them in automaticly
         if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-            echo '<input type="text" name="username" value="' . $_SESSION['user_name'] . '"/>';
-            echo '<input type="text" name="email" value="' . $_SESSION['user_email'] . '"/>';
+            echo '<input type="text" name="username" value="' . $_SESSION['user_name'] . '" readonly/>';
+            echo '<input type="text" name="email" value="' . $_SESSION['user_email'] . '" readonly/>';
         } else{
+            // If the user is a guest, get the username and email from the filled in fields
             echo '<input type="text" name="username" placeholder="username" required="required"/>';
             echo '<input type="email" name="email" placeholder="email" />';
         }      
@@ -100,7 +109,7 @@
 </form>
 
 <?php
-    
+    // If the user is logged in, insert the post in posts table with his/hers data
     if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
         $userID = $_SESSION['user_id'];  
         
@@ -123,6 +132,7 @@
             }           
         }              
     } else{
+         // If the user is a guest, get the data from the form fields and insert them in the posts table
          if(isset($_POST['submit'])){
             if($_POST['post-content'] != ""){
                 $postContent = $_POST['post-content'];
