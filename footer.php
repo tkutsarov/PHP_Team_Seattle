@@ -1,4 +1,4 @@
-<?php include 'categories_view.php'; ?>
+
 </div><!-- content -->
 </div><!-- wrapper -->
 

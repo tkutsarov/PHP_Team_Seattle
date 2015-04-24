@@ -45,8 +45,9 @@
                 
                 $resultTopics = $conn->query($sqlTopics);
                       
-                while($rowTopic = $resultTopics->fetch_assoc()){                    
-                    echo '<div class="topic-heading"><a href="#">' . 
+                while($rowTopic = $resultTopics->fetch_assoc()){    
+                    //var_dump($rowTopic);
+                    echo '<div class="topic-heading"><a href="posts_view.php?id=' . $rowTopic['id'] . '">' . 
                             $rowTopic['topic_subject'] . '</a><div class="topic-creation">created:' . 
                             $rowTopic['topic_date'] . '</div></div>';
 

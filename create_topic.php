@@ -79,6 +79,6 @@ if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
     }
 
 }
-
+include 'categories_view.php';
 include 'footer.php';
 ?>
