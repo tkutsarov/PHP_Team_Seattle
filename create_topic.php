@@ -4,7 +4,7 @@ include 'connect.php';
 include 'header.php';
 
 
-if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 
 
     //TODO A guest user must be able to write too.
@@ -53,8 +53,8 @@ if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
 
     } else {
 
-            $subject = htmlentities(trim($_POST['topic_subject']));
-            $content = htmlentities(trim($_POST['topic_content']));
+            $subject = addslashes(htmlentities(trim($_POST['topic_subject'])));
+            $content = addslashes(htmlentities(trim($_POST['topic_content'])));
             $userId = $_SESSION['user_id'];
             $cat = $_POST['cat_selector'];
             $tags = htmlentities(trim($_POST['topic_tags']));
@@ -64,7 +64,7 @@ if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
                     topic_cat,
                     topic_by,
                     topic_tags) VALUES('$subject', '$content', '$cat', '$userId', '$tags')";
-        var_dump($sql);
+        //var_dump($sql);
         $result = $conn->query($sql);
 
         if(!$result)
@@ -79,6 +79,6 @@ if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
     }
 
 }
-include 'categories_view.php';
+
 include 'footer.php';
 ?>

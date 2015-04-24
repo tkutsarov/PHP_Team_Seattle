@@ -9,10 +9,10 @@ textarea {
     height: 200px;
     display: inline-block;
     vertical-align: top;
-    font-size: 0.7em;
+    font-size: 0.8rem;
 }
 label {
-    font-size: 0.7em;
+    font-size: 1rem;
     font-weight: normal;
     display: block;
 }
@@ -22,13 +22,17 @@ label {
 }
 .tags > label {
     display: inline-block;
-    font-size: 0.5em;
+    font-size: 0.7rem;
     margin-right: 5px;
 }
 .sub-btn {
     height: 25px;
-    font-size: 0.6em;
+    font-size: 0.8rem;
 }
 .sub-btn:hover {
     background-color: #aaaaaa;
+    cursor: pointer;
+}
+select {
+    font-size: 1rem;
 }

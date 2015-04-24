@@ -1,7 +1,6 @@
 
 <?php    
     include 'connect.php';
-    include 'header.php';  
-    include 'categories_view.php';
+    include 'header.php';   
     include 'footer.php';
 ?>

@@ -10,11 +10,11 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
 else
 {
     if($_SERVER['REQUEST_METHOD'] != 'POST') {
-        echo '<h3>Sign in</h3>';
+        echo '<h2>Log in</h2>';
         echo '<form method="post" action="">
-                Username: <input type="text" name="user_name" />
-                Password: <input type="password" name="user_pass">
-                <input type="submit" value="Sign in" />
+                <label for="user_name">Username: </label><input type="text" name="user_name" />
+               <label for="user-pass">Password: </label><input type="password" id="password" name="user_pass">
+                <input type="submit" value="Log in" class="sub-btn"/>
                 </form>';
     }
     else
@@ -85,6 +85,5 @@ else
     }
 }
  
-include 'categories_view.php';
 include 'footer.php';
 ?>

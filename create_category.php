@@ -26,8 +26,8 @@ if($_SERVER['REQUEST_METHOD'] != 'POST') : ?>
         <?php endif; ?>
     <?php endif; ?>
 <?php else : ?>
-    <?php $cat_name = htmlentities(trim($_POST['cat_name']));
-    $cat_desc = htmlentities(trim($_POST['cat_description']));
+    <?php $cat_name = addslashes(htmlentities(trim($_POST['cat_name'])));
+    $cat_desc = addslashes(htmlentities(trim($_POST['cat_description'])));
 
     $sql = "INSERT INTO categories(cat_name, cat_description) VALUES ('$cat_name', '$cat_desc')";
     //var_dump($sql);
@@ -44,7 +44,6 @@ if($_SERVER['REQUEST_METHOD'] != 'POST') : ?>
 <?php endif; ?>
 
 <?php
-include 'categories_view.php';
 include 'footer.php';
 
 ?>
