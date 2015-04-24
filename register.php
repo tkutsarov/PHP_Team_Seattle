@@ -72,6 +72,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST'){
     }
 }
  
+include 'categories_view.php';
 include 'footer.php';
 ?>
 

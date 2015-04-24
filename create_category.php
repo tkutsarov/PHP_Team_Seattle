@@ -44,6 +44,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST') : ?>
 <?php endif; ?>
 
 <?php
+include 'categories_view.php';
 include 'footer.php';
 
 ?>
