@@ -48,7 +48,7 @@ else
 
             $password = hash('sha256', $password);
                     
-            $sql = "SELECT id, name, password, is_admin FROM users WHERE "
+            $sql = "SELECT id, name, password, email, is_admin FROM users WHERE "
                     . "name='$username' AND password='$password'";
                                               
             $result = $conn->query($sql);
@@ -63,11 +63,13 @@ else
                 if($result->num_rows > 0)
                 {                   
                     $_SESSION['logged_in'] = true;
-                                         
+                    
                     while($row = $result->fetch_assoc())
                     {
+                        //var_dump($row);
                         $_SESSION['user_id']    = $row['id'];
                         $_SESSION['user_name']  = $row['name'];
+                        $_SESSION['user_email'] = $row['email'];
                         $_SESSION['is_admin']  = $row['is_admin'];
                     }
                      
