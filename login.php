@@ -63,10 +63,9 @@ else
                 if($result->num_rows > 0)
                 {                   
                     $_SESSION['logged_in'] = true;
-                    
+                                         
                     while($row = $result->fetch_assoc())
                     {
-                        //var_dump($row);
                         $_SESSION['user_id']    = $row['id'];
                         $_SESSION['user_name']  = $row['name'];
                         $_SESSION['user_email'] = $row['email'];

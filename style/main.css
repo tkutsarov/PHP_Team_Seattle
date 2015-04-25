@@ -117,7 +117,7 @@ h3 {margin: 0; padding: 0;}
 
 
 
-div#categories{
+div#categories, #searched_categories {
     margin-top: 15px;
 }
 div.left-side{   

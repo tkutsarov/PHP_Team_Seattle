@@ -8,9 +8,9 @@ if($_SERVER['REQUEST_METHOD'] != 'POST') : ?>
     <?php //var_dump($_SESSION); ?>
     <?php if(isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) : ?>
         <form method="post">
-            Category name: <input type="text" name="cat_name" /><br />
-            Category description: <input name="cat_description" /><br />
-            <input type="submit" value="Create category" />
+            <label for="name">Category name: </label><input type="text" name="cat_name" id="name"/>
+            <label for="name">Category description: </label><input name="cat_description" />
+            <input type="submit" value="Create category" class="sub-btn"/>
         </form>
     <?php else : ?>
         <?php if(!isset($_SESSION['is_admin'])) : ?>
@@ -28,7 +28,8 @@ if($_SERVER['REQUEST_METHOD'] != 'POST') : ?>
 <?php else : ?>
     <?php $cat_name = addslashes(htmlentities(trim($_POST['cat_name'])));
     $cat_desc = addslashes(htmlentities(trim($_POST['cat_description'])));
-
+    $conn->query("SET NAMES utf8");
+    $conn->query("SET COLLATION_CONNECTION=utf8_bin");
     $sql = "INSERT INTO categories(cat_name, cat_description) VALUES ('$cat_name', '$cat_desc')";
     //var_dump($sql);
     ?>
