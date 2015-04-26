@@ -29,7 +29,7 @@ $conn->query("SET COLLATION_CONNECTION=utf8_bin");
             while($row = $result->fetch_assoc())
             {               
                 
-                echo '<div class="left-side">';
+                echo '<section class="left-side">';
                 echo '<div class="category-heading">' . $row['cat_name'] . '</div>';
                 echo '<div class="category-description">' . $row['cat_description'] . '</div>';
                 $conn->query("SET NAMES utf8");
@@ -54,12 +54,12 @@ $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                       
                 while($rowTopic = $resultTopics->fetch_assoc()){    
                     $date = DateFormatter::getDateFromTimeStamp($rowTopic['topic_date']);
-                    echo '<div class="topic-heading"><a href="posts_view.php?id=' . $rowTopic['id'] . '">' . 
+                    echo '<article class="topic-heading"><a href="posts_view.php?id=' . $rowTopic['id'] . '">' .
                             $rowTopic['topic_subject'] . '</a><div class="topic-date">'. $date . '</div>' .
-                        '<div class="topic-author">created by: ' .$rowTopic['name'] . '</div></div>';
+                        '<div class="topic-author">created by: ' .$rowTopic['name'] . '</div></article>';
 
                 }
-                echo '</div>';                               
+                echo '</section>';
             }
             echo '</div>';
         }
