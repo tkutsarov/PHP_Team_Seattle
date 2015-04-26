@@ -72,7 +72,7 @@ if (!$result) {
                 echo '<div class="post-content">' .
                     $rowPost['post_content'] . '<div class="post-footer">'
                         . '<div class="post-notation">created:' .
-                    $rowPost['post_date'] . '</div><div class="post-notation">post by:' .
+                    $rowPost['post_date'] . '</div><div class="post-notation">posted by:' .
                     $postedByGuest . '</div></div></div>';
             } else {
                 // If the user is logged in get the data from the users table
@@ -90,7 +90,7 @@ if (!$result) {
                 echo '<div class="post-content">' .
                     $rowPost['post_content'] . '<div class="post-footer">'
                         . '<div class="post-notation">created:' .
-                    $rowPost['post_date'] . '</div><div class="post-notation">post by:' .
+                    $rowPost['post_date'] . '</div><div class="post-notation">posted by:' .
                     $rowPostedBy['name'] . '</div></div></div>';
             }
         }
