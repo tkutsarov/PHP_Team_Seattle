@@ -3,11 +3,11 @@ include 'connect.php';
 include 'header.php';
 define('GUESTID', 21);
 
-
 //get the ID only if the user has clicked on a topic.
 if (isset($_GET['id'])) {
     $_SESSION['topic_id'] = $_GET['id'];
     $topicID = $_SESSION['topic_id'];
+    
     //update the visits for the chosen topic   
     $sqlUpdateVisits = "UPDATE 
                                 topics 
@@ -120,6 +120,7 @@ if (!$result) {
         header('Location:index.php');
     }
     
+    // If the user is logged in, insert the post in posts table with his/hers data  
     if(isset($_POST['submit'])){
         $post = str_replace(" ", "", $_POST['post-content']);
         if($post != ""){
@@ -142,6 +143,7 @@ if (!$result) {
             }
             
             $resultPostInsert = $conn->query($sqlPostInsert);
+            
             if(!$resultPostInsert){
                 echo 'Could not create post. Please try again.' . $conn->error;
             }else{
@@ -149,7 +151,7 @@ if (!$result) {
             }
         }
     }
-    // If the user is logged in, insert the post in posts table with his/hers data  
+    
     include 'footer.php';
 ?>
 
