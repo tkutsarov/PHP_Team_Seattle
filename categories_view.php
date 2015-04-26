@@ -48,7 +48,7 @@ $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                                 INNER JOIN users AS u
                                 ON t.topic_by = u.id
                                 WHERE 
-                                    topic_cat =" . $row['id'];
+                                    topic_cat =" . $row['id'] . " ORDER BY t.topic_date DESC";
                 
                 $resultTopics = $conn->query($sqlTopics);
                       
