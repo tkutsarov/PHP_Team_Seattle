@@ -1,5 +1,6 @@
 <?php
     include 'connect.php';
+    include 'DateFormatter.php';
 $conn->query("SET NAMES utf8");
 $conn->query("SET COLLATION_CONNECTION=utf8_bin");
     $sql = "SELECT
@@ -34,25 +35,28 @@ $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                 $conn->query("SET NAMES utf8");
                 $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                 $sqlTopics = "SELECT
-                                    id,
-                                    topic_subject,
-                                    topic_description,
-                                    topic_date,
-                                    topic_cat,
-                                    topic_by,
-                                    visits
+                                    t.id,
+                                    t.topic_subject,
+                                    t.topic_description,
+                                    t.topic_date,
+                                    t.topic_cat,
+                                    t.topic_by,
+                                    t.visits,
+                                    u.name
                                 FROM
-                                    topics
+                                    topics AS t
+                                INNER JOIN users AS u
+                                ON t.topic_by = u.id
                                 WHERE 
                                     topic_cat =" . $row['id'];
                 
                 $resultTopics = $conn->query($sqlTopics);
                       
                 while($rowTopic = $resultTopics->fetch_assoc()){    
-                    //var_dump($rowTopic);
+                    $date = DateFormatter::getDateFromTimeStamp($rowTopic['topic_date']);
                     echo '<div class="topic-heading"><a href="posts_view.php?id=' . $rowTopic['id'] . '">' . 
-                            $rowTopic['topic_subject'] . '</a><div class="topic-creation">created:' . 
-                            $rowTopic['topic_date'] . '</div></div>';
+                            $rowTopic['topic_subject'] . '</a><div class="topic-date">'. $date . '</div>' .
+                        '<div class="topic-author">created by: ' .$rowTopic['name'] . '</div></div>';
 
                 }
                 echo '</div>';                               

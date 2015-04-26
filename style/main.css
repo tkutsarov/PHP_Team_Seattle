@@ -1,45 +1,75 @@
 body {
-    background-color: #4E4E4E;
+    background-color: #cccccc;
     text-align: center;         /* make sure IE centers the page too */
-    font: 16px Georgia, arial, sans-serif;
+    font: 16px Verdana, arial, sans-serif;
 }
  
 #wrapper {
-    width: 900px;
+    max-width: 900px;
     margin: 0 auto;             /* center the page */
 }
  
 #content {
     background-color: #fff;
-    border: 1px solid #000;
+    border: 1px solid #666666;
     float: left;
-    font-family: Arial;
-    padding: 20px 30px;
+    padding: 2% 3%;
     text-align: left;
     width: 100%;                /* fill up the entire div */
 }
- 
-#menu {
-    float: left;
-    border: 1px solid #000;
-    border-bottom: none;        /* avoid a double border */
-    clear: both;                /* clear:both makes sure the content div doesn't float next to this one but stays under it */
-    width:100%;
-    height:20px;
-    padding: 0 30px;
-    background-color: #FFF;
-    text-align: left;
-    font-size: 85%;
+
+#logo {
+    height: 150px;
+    padding: 0 3.1%;
+    width: 100%;
+    background: #ffffff url('../images/Seattle_logo.gif') no-repeat 50%;
+    background-size: contain;
 }
  
+#menu {
+    border: 1px solid #666666;
+    border-bottom: none;        /* avoid a double border */
+    width:100%;
+    height:32px;
+    padding: 0 3%;
+    background-color: rgba(0, 128, 87, 0.95);
+    text-align: justify;
+}
+
+#menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 2px;
+
+}
+#menu > ul > li {
+    display: inline-block;
+    height: 30px;
+    font-size: 1.2rem;
+    padding: 0 5px;
+}
+#menu > ul > li:nth-child(4),#menu > ul > li:last-child  {
+    padding: 0 8px;
+    float: right;
+}
+#username-login {
+    padding-right: 10px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
 #menu a:hover {
-    background-color: #009FC1;
+    -webkit-transition:  0.5s; /* Safari */
+    transition: 0.5s;
+    background-color: #ffffff;
+    color: rgba(0, 128, 87, 0.95)
 }
  
 #userbar {
     background-color: #fff;
-    float: right;
-    width: 250px;
+    /*float: right;*/
+    width: 20%;
+    display: inline;
 }
  
 #footer {
@@ -80,15 +110,16 @@ h1, #footer {
 h3 {margin: 0; padding: 0;}
  
 /* Menu styles */
+
 .item {
-    background-color: #00728B;
-    border: 1px solid #032472;
-    color: #FFF;
-    font-family: Arial;
-    padding: 3px;
+    background-color: rgba(0, 128, 87, 0.95);
+    color: #ffffff;
     text-decoration: none;
+    line-height: 30px;
+    padding: 3px;
+    border-radius: 5px;
 }
- 
+
 .leftpart {
     width: 70%;
 }
@@ -122,35 +153,67 @@ div#categories, #searched_categories {
 }
 div.left-side{   
     border: 1px solid black;
-    background-color: menu;
     padding: 5px;
     margin-bottom:1px;
+    background-color: #eeeeee;
 }
 
 div.category-heading{
-    color: #B40E1F;
-    font-size: 150%;
-    font-weight: bold; 
+    color: #ffffff;
+    background-color: #666666;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    padding: 5px;
+}
+div.category-description {
+    color: #444;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin: 3px 0;
 }
 
-div.category-description,div.topic-creation {
+div.topic-author {
     font-style: italic;
     font-size:80%;
     color: #00728B;
+    padding: 0 10px;
+    line-height: 0;
+    margin-bottom: 5px;
+}
+div.topic-date {
+    font-style: italic;
+    font-size:80%;
+    color: #00728B;
+    display: inline-block;
+    float: right;
 }
 
-div.topic-heading{
-    font-size: 120%;
-    padding-left: 20px;
-    color: #032472;    
+div.topic-heading {
+    font-size: 1rem;
+    padding: 15px 15px 20px 15px;
+    color: #032472;
+    border: 1px solid #cccccc;
+    border-bottom: none;
+    line-height: 40px;
+    background-color: #ffffff;
+}
+div.topic-heading:last-child {
+    border-bottom: 1px solid #cccccc;;
 }
 
 div.topic-heading:hover{
-    background-color: lightskyblue;
+    background-color: #F7F7F7;
 }
 
 div.topic-heading > a{
     display: inline;
+    text-decoration: none;
+    color: #373737;
+}
+div.topic-heading > a:before {
+    content: url(../images/sticky.gif) " ";
 }
 
 div.topic-creation{

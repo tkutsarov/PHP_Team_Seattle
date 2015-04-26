@@ -1,6 +1,7 @@
 <?php
 include 'connect.php';
 include 'header.php';
+include 'DateFormatter.php';
 ?>
 <?php
 
@@ -66,10 +67,10 @@ if (isset($_POST['search'])) {
                         echo '<div class="category-description">' . $topicData['cat_description'] . '</div>';
                         for ($i = 0; $i < count($topicData) - 1; $i += 1) {
             //  All selected database columns are available for every topic
+                            $date = DateFormatter::getDateFromTimeStamp($topicData[$i]['topic_date']);
                             echo '<div class="topic-heading"><a href="posts_view.php?id=' . $topicData[$i]['id'] . '">' .
-                            $topicData[$i]['topic_subject'] . '</a><div class="topic-creation">created:' .
-            // The topic author name must be here
-                            $topicData[$i]['topic_date'] . '</div></div>';
+                            $topicData[$i]['topic_subject'] . '</a><div class="topic-date">' . $date . '</div>' .
+                            '<div class="topic-author">created by: ' .$topicData[$i]['name'] . '</div></div>';
                         }
                         echo '</div>';
                     }
@@ -77,6 +78,7 @@ if (isset($_POST['search'])) {
                     echo '</div>';
 
                 }
+
         }
     }
 

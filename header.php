@@ -13,23 +13,23 @@
     <script type="text/javascript" src="js/register.js"></script>
 </head>
 <body>
-<h1>My forum</h1>
     <div id="wrapper">
-        <div id="menu">
-            <a class="item" href="index.php">Home</a></button> -
-            <a class="item" id="create-topic" href="create_topic.php">Create a topic</a> -
-            <a class="item" href="create_category.php">Create a category</a>
-            <div id="userbar">    
-                
+        <div id="logo"></div>
+
+        <nav id="menu">
+            <ul>
+            <li><a class="item" href="index.php">Home</a></li>
+            <li><a class="item" id="create-topic" href="create_topic.php">Create a topic</a></li>
+            <li><a class="item" href="create_category.php">Create a category</a></li>
                 <?php
                 if(!isset($_SESSION['logged_in'])){
-                     echo '<a href="login.php" class="item">Log in</a> ' . ' <a href="register.php" class="item">Register</a>';
+                     echo '<li><a href="login.php" class="item">Log in</a></li> ' . ' <li><a href="register.php" class="item">Register</a></li>';
                 } else {
-                    echo 'User: ' . $_SESSION['user_name'] . ' ' . '<a href="logout.php" class="item">Log out</a>';
+                    echo '<li><span id="username-login">User: ' . $_SESSION['user_name'] . '</span> ' . '<a href="logout.php" class="item">Log out</a></li>';
                 }
                    
                 ?>
-            </div>
-        </div>
+            </ul>
+        </nav>
         <div id="content">
 <?php include 'search_form.php' ?>
