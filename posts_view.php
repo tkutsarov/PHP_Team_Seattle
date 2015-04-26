@@ -3,9 +3,18 @@ include 'connect.php';
 include 'header.php';
 define('GUESTID', 21);
 
+
 //get the ID only if the user has clicked on a topic.
 if (isset($_GET['id'])) {
     $_SESSION['topic_id'] = $_GET['id'];
+    $topicID = $_SESSION['topic_id'];
+    //update the visits for the chosen topic   
+    $sqlUpdateVisits = "UPDATE 
+                                topics 
+                            SET 
+                                visits = visits + 1 
+                            WHERE id = $topicID";
+     $conn->query($sqlUpdateVisits);   
 }
 
 $topicID = $_SESSION['topic_id'];
@@ -69,11 +78,11 @@ if (!$result) {
                 $conn->query("SET NAMES utf8");
                 $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                 $sqlPostedBy = "SELECT
-                                            name
-                                        FROM
-                                            users                          
-                                        WHERE 
-                                            id =" . $rowPost['post_by'];
+                                        name
+                                    FROM
+                                        users                          
+                                    WHERE 
+                                        id =" . $rowPost['post_by'];
                 $resultPostedBy = $conn->query($sqlPostedBy);
                 $rowPostedBy = $resultPostedBy->fetch_assoc();
 
@@ -82,8 +91,6 @@ if (!$result) {
                     $rowPost['post_date'] . '</div><div class="topic-creation">post by:' .
                     $rowPostedBy['name'] . '</div></div>';
             }
-
-
         }
         echo '</div>';
     }
@@ -92,73 +99,57 @@ if (!$result) {
     <!-- display the form for entering a new post for the given topic -->
     <form method="post" action="posts_view.php">
         <?php
-        // If the user is logged in, get the username and email and fill them in automaticly
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-            echo '<input type="text" name="username" value="' . $_SESSION['user_name'] . '" readonly/>';
-            echo '<input type="text" name="email" value="' . $_SESSION['user_email'] . '" readonly/>';
-        } else {
-            // If the user is a guest, get the username and email from the filled in fields
-            echo '<input type="text" name="username" placeholder="username" required="required"/>';
-            echo '<input type="email" name="email" placeholder="email" />';
-        }
+            // If the user is logged in, get the username and email and fill them in automaticly
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                echo '<input type="text" name="username" value="' . $_SESSION['user_name'] . '" readonly/>';
+                echo '<input type="text" name="email" value="' . $_SESSION['user_email'] . '" readonly/>';
+            } else {
+                // If the user is a guest, get the username and email from the filled in fields
+                echo '<input type="text" name="username" placeholder="username" required="required"/>';
+                echo '<input type="email" name="email" placeholder="email" />';
+            }
         ?>
 
         <textarea name="post-content" placeholder="comment"></textarea>
         <input type="submit" name="submit" placeholder="Post comment"/>
-        <a href="index.php">View all topics</a>
+        <input type="button" name="home-page" value="View all topics">
     </form>
 
 <?php
-
-
-
-// If the user is logged in, insert the post in posts table with his/hers data
-if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-    $userID = $_SESSION['user_id'];
-
+    if(isset($_POST['home-page'])){    
+        header('Location:index.php');
+    }
+    
     if(isset($_POST['submit'])){
-        if($_POST['post-content'] != ""){
+        $post = str_replace(" ", "", $_POST['post-content']);
+        if($post != ""){
             $postContent = $_POST['post-content'];
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                $userID = $_SESSION['user_id'];
+            } else{
+                $username = $_POST['username'];
+                $guestEmail = $_POST['email'];
+            }
+            
             $conn->query("SET NAMES utf8");
             $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-            $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
-                . "VALUES ('$postContent', '$topicID', '$userID')";
-            $resultPostInsert = $conn->query($sqlPostInsert);
-            if(!$resultPostInsert)
-            {
-                echo 'Could not create post. Please try again.' . $conn->error;
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
+                    . "VALUES ('$postContent', '$topicID', '$userID')";
+            } else{
+                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
+                    . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
             }
-            else
-            {
+            
+            $resultPostInsert = $conn->query($sqlPostInsert);
+            if(!$resultPostInsert){
+                echo 'Could not create post. Please try again.' . $conn->error;
+            }else{
                 header('Location: posts_view.php');
             }
         }
     }
-} else{
-    // If the user is a guest, get the data from the form fields and insert them in the posts table
-    if(isset($_POST['submit'])){
-        if($_POST['post-content'] != ""){
-            $postContent = $_POST['post-content'];
-            $username = $_POST['username'];
-            $guestEmail = $_POST['email'];
-            $conn->query("SET NAMES utf8");
-            $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-            $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
-                . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
-            $resultPostInsert = $conn->query($sqlPostInsert);
-            if(!$resultPostInsert)
-            {
-                echo 'Could not create post. Please try again.' . $conn->error;
-            }
-            else
-            {
-                header('Location: posts_view.php');
-            }
-        }
-    }
-}
+    // If the user is logged in, insert the post in posts table with his/hers data  
+    include 'footer.php';
+?>
 
-?>
-<?php
-include 'footer.php';
-?>
