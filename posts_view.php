@@ -43,7 +43,7 @@ if (!$result) {
         echo '<div id="topic">';
         $row = $result->fetch_assoc();
 
-        echo '<div class="topic-heading">' . $row['topic_subject'] . '</div>';
+        echo '<div class="category-heading">' . $row['topic_subject'] . '</div>';
         echo '<div class="category-description">' . $row['topic_description'] . '</div>';
 
         // get the post for that topic
@@ -69,10 +69,11 @@ if (!$result) {
             // username and password.
             if ($rowPost['post_by'] == GUESTID) {
                 $postedByGuest = $rowPost['guest'];
-                echo '<div>' .
-                    $rowPost['post_content'] . '<div class="topic-creation">;  created:' .
-                    $rowPost['post_date'] . '</div><div class="topic-creation">post by:' .
-                    $postedByGuest . '</div></div>';
+                echo '<div class="post-content">' .
+                    $rowPost['post_content'] . '<div class="post-footer">'
+                        . '<div class="post-notation">created:' .
+                    $rowPost['post_date'] . '</div><div class="post-notation">post by:' .
+                    $postedByGuest . '</div></div></div>';
             } else {
                 // If the user is logged in get the data from the users table
                 $conn->query("SET NAMES utf8");
@@ -86,10 +87,11 @@ if (!$result) {
                 $resultPostedBy = $conn->query($sqlPostedBy);
                 $rowPostedBy = $resultPostedBy->fetch_assoc();
 
-                echo '<div>' .
-                    $rowPost['post_content'] . '<div class="topic-creation">;  created:' .
-                    $rowPost['post_date'] . '</div><div class="topic-creation">post by:' .
-                    $rowPostedBy['name'] . '</div></div>';
+                echo '<div class="post-content">' .
+                    $rowPost['post_content'] . '<div class="post-footer">'
+                        . '<div class="post-notation">created:' .
+                    $rowPost['post_date'] . '</div><div class="post-notation">post by:' .
+                    $rowPostedBy['name'] . '</div></div></div>';
             }
         }
         echo '</div>';
@@ -111,15 +113,11 @@ if (!$result) {
         ?>
 
         <textarea name="post-content" placeholder="comment"></textarea>
-        <input type="submit" name="submit" placeholder="Post comment"/>
-        <input type="button" name="home-page" value="View all topics">
+        <input type="submit" name="submit" value="Post comment" class="post-button"/>
+        <a href="index.php" class="post-button">View all topics</a>
     </form>
 
-<?php
-    if(isset($_POST['home-page'])){    
-        header('Location:index.php');
-    }
-    
+<?php   
     // If the user is logged in, insert the post in posts table with his/hers data  
     if(isset($_POST['submit'])){
         $post = str_replace(" ", "", $_POST['post-content']);

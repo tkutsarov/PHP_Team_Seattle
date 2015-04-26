@@ -208,3 +208,55 @@ article.topic-heading > a:before {
     content: url(../images/sticky.gif) " ";
 }
 
+div.post-content{
+    width: 98%;
+    font-size: 85%;
+    padding: 5px;
+    color: black;
+    border: 1px solid #cccccc;   
+    line-height: 15px;
+    background-color: #ffffff;
+    word-wrap: break-word;
+}
+
+div.post-footer{
+    margin-top:10px;
+}
+
+div.post-notation{
+    display: inline-block;
+    font-size: 70%;
+    padding: 5px;
+    line-height: 15px;
+    color: #00728B;      
+    background-color: activecaption;
+}
+
+a.post-button{
+    display:inline-block;
+    text-decoration: none;
+    margin:5px;
+    padding: 1px 6px 1px 6px;
+    font-size:80%;
+    height: 19px;
+}
+
+.post-button{
+    box-shadow: 3px 3px 1px #888888;
+    border: none;
+    background-color: #00728B;
+    color: #ffffff;   
+}
+
+input.post-button{
+    cursor: pointer;  
+}
+
+.post-button:hover{
+    
+    background-color: #1c94c4;
+    color: #ffffff;   
+}
+
+
+
