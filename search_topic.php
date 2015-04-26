@@ -35,7 +35,7 @@ if (isset($_POST['search'])) {
                 "INNER JOIN users AS u " .
                 "ON u.id = t.topic_by " .
                 "WHERE t.topic_subject LIKE '%$keywords%' " .
-                "OR t.topic_description LIKE '%$keywords%' ";
+                "OR t.topic_description LIKE '%$keywords%' ORDER BY t.topic_date DESC";
 
 
             $result = $conn->query($sql);
@@ -62,17 +62,17 @@ if (isset($_POST['search'])) {
                     }
 
                     foreach ($categories as $key => $topicData) {
-                        echo '<div class="left-side">';
+                        echo '<section class="left-side">';
                         echo '<div class="category-heading">' . $key . '</div>';
                         echo '<div class="category-description">' . $topicData['cat_description'] . '</div>';
                         for ($i = 0; $i < count($topicData) - 1; $i += 1) {
             //  All selected database columns are available for every topic
                             $date = DateFormatter::getDateFromTimeStamp($topicData[$i]['topic_date']);
-                            echo '<div class="topic-heading"><a href="posts_view.php?id=' . $topicData[$i]['id'] . '">' .
+                            echo '<article class="topic-heading"><a href="posts_view.php?id=' . $topicData[$i]['id'] . '">' .
                             $topicData[$i]['topic_subject'] . '</a><div class="topic-date">' . $date . '</div>' .
-                            '<div class="topic-author">created by: ' .$topicData[$i]['name'] . '</div></div>';
+                            '<div class="topic-author">created by: ' .$topicData[$i]['name'] . '</div></article>';
                         }
-                        echo '</div>';
+                        echo '</section>';
                     }
 
                     echo '</div>';

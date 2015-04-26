@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <div id="logo"></div>
+        <header id="logo"></header>
 
         <nav id="menu">
             <ul>
@@ -31,5 +31,5 @@
                 ?>
             </ul>
         </nav>
-        <div id="content">
+        <main id="content">
 <?php include 'search_form.php' ?>
