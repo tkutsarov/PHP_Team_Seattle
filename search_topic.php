@@ -35,7 +35,7 @@ if (isset($_POST['search'])) {
                 "INNER JOIN users AS u " .
                 "ON u.id = t.topic_by " .
                 "WHERE t.topic_subject LIKE '%$keywords%' " .
-                "OR t.topic_description LIKE '%$keywords%' ";
+                "OR t.topic_description LIKE '%$keywords%' ORDER BY t.topic_date DESC";
 
 
             $result = $conn->query($sql);
