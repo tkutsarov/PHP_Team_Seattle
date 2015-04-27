@@ -127,8 +127,21 @@ h3 {margin: 0; padding: 0;}
     font-size: 1rem;
     color: rgba(0, 128, 87, 0.95);
     padding: 3px 0 0 0;
+    display: inherit;
+    position: relative;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 15px;
+    width: 900px;
+    background-color: #008057;
 }
- 
+
+ #footSprite{
+     position: absolute;
+     width: 28px;
+     height: 26px;
+ }
+
 .topic-post {
     height: 100px;
     overflow: auto;
@@ -239,6 +252,7 @@ article.post-content{
 
 div.post-footer{
     margin-top:10px;
+
 }
 article.post-content > span {
     padding: 5px;
@@ -297,4 +311,10 @@ input.post-button{
     color: red;
 }
 
+<<<<<<< HEAD
+a.post-button{
+    margin: 0px 0px 10px 0px;
+}
+=======
 
+>>>>>>> 2462f69d1df9265ead6ffa0430ee0619a44dcc71
