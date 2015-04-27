@@ -46,7 +46,7 @@ if (isset($_POST['search'])) {
                 if (!$result->num_rows > 0) {
                     echo "<span>Nothing was found</span>";
                 } else {
-                    $categories = [];
+                    $categories = array();
 
                     echo '<div id="searched_categories">';
                     while ($row = $result->fetch_assoc()) {

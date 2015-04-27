@@ -1,11 +1,9 @@
 <?php
-
 include 'connect.php';
 include 'header.php';
 
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
-
 
     //TODO A guest user must be able to write too.
     echo '<p>You must <a href="login.php">login</a> to create topic</p>';
@@ -65,7 +63,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             $tags = htmlentities(trim($_POST['topic_tags']));
             $conn->query("SET NAMES utf8");
             $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-            $_SESSION['topic_subject'] = '';
+            if (!isset($_SESSION['topic_subject'])) {
+                $_SESSION['topic_subject'] = '';
+            }
             if ($_SESSION['topic_subject'] != $subject) {
 
                 $sql = "INSERT INTO topics (

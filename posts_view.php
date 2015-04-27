@@ -2,13 +2,11 @@
 include 'connect.php';
 include 'header.php';
 include 'DateFormatter.php';
-define('GUESTID', 21);
-
+define('GUESTID', 1);
 //get the ID only if the user has clicked on a topic.
 if (isset($_GET['id'])) {
     $_SESSION['topic_id'] = $_GET['id'];
     $topicID = $_SESSION['topic_id'];
-
     //update the visits for the chosen topic   
     $sqlUpdateVisits = "UPDATE 
                                 topics 
@@ -17,9 +15,7 @@ if (isset($_GET['id'])) {
                             WHERE id = $topicID";
     $conn->query($sqlUpdateVisits);
 }
-
 $topicID = $_SESSION['topic_id'];
-
 // get the topic that has been chosen and print it on the top as a heading.
 $conn->query("SET NAMES utf8");
 $conn->query("SET COLLATION_CONNECTION=utf8_bin");
@@ -36,9 +32,7 @@ $sql = "SELECT
                 ON u.id = t.topic_by
             WHERE
                 t.id= " . $topicID;
-
 $result = $conn->query($sql);
-
 if (!$result) {
     echo 'The topic could not be displayed.';
 } else {
@@ -48,30 +42,26 @@ if (!$result) {
         echo '<a href="#bottom" class="post-button">Write a post</a>';
         echo '<section id="topic">';
         $row = $result->fetch_assoc();
-
         echo '<div class="topic-post-heading">' . $row['topic_subject'] . '</div>';
         echo '<div class="topic-post-author">By: ' . $row['name'] . ', ' .
             DateFormatter::getPostDateFromTimeStamp($row['topic_date']) . '</div>
             <div class="category-description">' . $row['topic_description'] . '</div>';
-
         // get the post for that topic
         $conn->query("SET NAMES utf8");
         $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-        $sqlPosts = "SELECT
-                                id,
-                                post_content,
-                                post_date,
-                                post_topic,
-                                post_by,
-                                guest,
-                                guest_email
+        $sqlPosts = "SELECT u.name,
+                                p.id,
+                                p.post_content,
+                                p.post_date,
+                                p.post_topic,
+                                p.post_by,
+                                p.guest,
+                                p.guest_email
                             FROM
-                                posts
+                                posts AS p INNER JOIN users AS u ON u.id = p.post_by
                             WHERE 
-                                post_topic =" . $row['id'];
-
+                                p.post_topic = " . $row['id']. " ORDER BY id";
         $resultPosts = $conn->query($sqlPosts);
-
         while ($rowPost = $resultPosts->fetch_assoc()) {
             // If the user is a guest /not logged in registered user/ display the given
             // username and password.
@@ -84,19 +74,20 @@ if (!$result) {
                     DateFormatter::getPostDateFromTimeStamp($rowPost['post_date']) . '</div></article>';
             } else {
                 // If the user is logged in get the data from the users table
-                $conn->query("SET NAMES utf8");
-                $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-                $sqlPostedBy = "SELECT
-                                        name
-                                    FROM
-                                        users                          
-                                    WHERE 
-                                        id =" . $rowPost['post_by'];
-                $resultPostedBy = $conn->query($sqlPostedBy);
-                $rowPostedBy = $resultPostedBy->fetch_assoc();
+//                $conn->query("SET NAMES utf8");
+//                $conn->query("SET COLLATION_CONNECTION=utf8_bin");
+//                $sqlPostedBy = "SELECT
+//                                        name
+//                                    FROM
+//                                        users
+//                                    WHERE
+//                                        id = " . $rowPost['post_by'];
+//                $resultPostedBy = $conn->query($sqlPostedBy);
+//                $rowPostedBy = $resultPostedBy->fetch_assoc();
+
 
                 echo '<article class="post-content">' .
-                    '<div class="post-author registered-icon">' . $rowPostedBy['name'] . '</div>' .
+                    '<div class="post-author registered-icon">' . $rowPost['name'] . '</div>' .
                     '<span>' . $rowPost['post_content'] . '</span><div class="post-footer">' .
                     '<div class="post-data">' .
                     DateFormatter::getPostDateFromTimeStamp($rowPost['post_date']) . '</div></article>';
@@ -119,13 +110,11 @@ if (!$result) {
         echo '<input type="email" name="email" placeholder="email(optional)" maxlength="255" />';
     }
     ?>
-
-    <textarea name="post-content" placeholder="comment" maxlength="1000" required="required"></textarea>
-    <input type="submit" name="submit" value="Post comment" class="post-button"/>
+    <textarea name="post-content" placeholder="comment" maxlength="1000" required="required" id="post-field"></textarea>
+    <input type="submit" name="submit" value="Post comment" class="post-button" onclick="RedirectPage()"/>
     <a href="index.php" class="post-button">View all topics</a>
     <a href="#top" name="bottom" class="post-button">To top</a>
 </form>
-
 <?php
 // If the user is logged in, insert the post in posts table with his/hers data
 if (isset($_POST['submit'])) {
@@ -135,12 +124,12 @@ if (isset($_POST['submit'])) {
             echo 'Maximal lenght for comment is 1000 symbols';
         } else {
             $isUsernameValid = true;
-            $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
+            $postContent = mysqli_real_escape_string($conn, htmlentities($_POST['post-content']));
             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 $userID = $_SESSION['user_id'];
             } else {
-                $username = mysql_real_escape_string(htmlentities($_POST['username']));
-                $guestEmail = mysql_real_escape_string(htmlentities($_POST['email']));
+                $username = mysqli_real_escape_string($conn, htmlentities($_POST['username']));
+                $guestEmail = mysqli_real_escape_string($conn, htmlentities($_POST['email']));
                 if (strlen($username) > 50 || strlen($username) < 3) {
                     echo 'Username must be between 3 and 50 symbols.';
                     $isUsernameValid = false;
@@ -149,8 +138,6 @@ if (isset($_POST['submit'])) {
                     $isUsernameValid = false;
                 }
             }
-
-
             if ($isUsernameValid){
                 $conn->query("SET NAMES utf8");
                 $conn->query("SET COLLATION_CONNECTION=utf8_bin");
@@ -161,19 +148,15 @@ if (isset($_POST['submit'])) {
                     $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
                         . "VALUES ('$postContent', '$topicID', " . GUESTID . ", '$username', '$guestEmail')";
                 }
-
                 $resultPostInsert = $conn->query($sqlPostInsert);
-
                 if (!$resultPostInsert) {
                     echo 'Could not create post. Please try again.' . $conn->error;
                 } else {
-                    header('Location: posts_view.php');
+                    echo '<script>window.location = "http://codestorm.cloudvps.bg/posts_view.php"</script>';
+
                 }
             }
         }
     }
-}
-
-include 'footer.php';
-?>
-
+}?>
+<?php include 'footer.php';?>

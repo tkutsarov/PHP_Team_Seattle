@@ -1,5 +1,4 @@
 <?php
-
 include 'connect.php';
 include 'header.php';
 
@@ -47,9 +46,10 @@ if($_SERVER['REQUEST_METHOD'] != 'POST'){
         //var_dump(preg_match($email_regex, $_POST['user_email']));
         if(preg_match($email_regex, $_POST['user_email']) == 0) {
             array_push($errors, 'You have entered an invalid email.');
-        } else {
-            array_push($errors, 'The email field cannot be empty.');
         }
+
+    } else {
+        array_push($errors, 'The email field cannot be empty.');
     }
 //    var_dump($_POST);
 //    var_dump($errors);

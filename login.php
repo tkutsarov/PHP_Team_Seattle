@@ -1,5 +1,4 @@
 <?php
-
 include 'connect.php';
 include 'header.php';
 
@@ -19,7 +18,7 @@ else
     }
     else
     {       
-        $errors = []; 
+        $errors = array();
          
         if(!$_POST['user_name'])
         {
