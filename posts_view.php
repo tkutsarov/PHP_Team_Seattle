@@ -154,11 +154,8 @@ if (!$result) {
                         }else{
                             header('Location: posts_view.php');
                         }
-                    }
-                    
-                }
-
-                
+                    }                   
+                }                
             }           
         }
     }

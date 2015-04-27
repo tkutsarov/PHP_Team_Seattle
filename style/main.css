@@ -124,8 +124,8 @@ h3 {margin: 0; padding: 0;}
 }
 #footer {
     clear: both;
-    font-size: 3rem;
-    color: #cd0a0a;
+    font-size: 1rem;
+    color: rgba(0, 128, 87, 0.95);
     padding: 3px 0 0 0;
 }
  
@@ -192,10 +192,10 @@ article.topic-heading {
     border-bottom: none;
     line-height: 40px;
     background-color: #ffffff;
+    word-wrap: break-word;
 }
 article.topic-heading:last-child {
     border-bottom: 1px solid #cccccc;;
-    word-wrap: break-word;
 }
 
 article.topic-heading:hover{
