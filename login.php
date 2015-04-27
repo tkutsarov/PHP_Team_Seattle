@@ -12,8 +12,8 @@ else
     if($_SERVER['REQUEST_METHOD'] != 'POST') {
         echo '<h2>Log in</h2>';
         echo '<form method="post" action="">
-                <label for="user_name">Username: </label><input type="text" name="user_name" required />
-               <label for="user-pass">Password: </label><input type="password" id="password" name="user_pass" required />
+                <label for="user_name">Username: </label><input type="text" name="user_name" required="required"/>
+               <label for="user-pass">Password: </label><input type="password" id="password" name="user_pass" required="required"/>
                 <input type="submit" value="Log in" class="sub-btn"/>
                 </form>';
     }

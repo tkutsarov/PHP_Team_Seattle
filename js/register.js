@@ -1,13 +1,4 @@
 $(document).ready(function(){
-	//function disableCreateTopic(){
-	//	$('#create-topic').bind('click', function() {
-     //       e.preventDefault();
-     //   });
-	//}
-    //
-	//function enableCreateTopic(){
-	//	$('#create-topic').removeProp('disabled');
-	//}
 
 	$('#confirm-pass').on('input', function(){
 		var password = $('#password').val();

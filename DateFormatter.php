@@ -1,7 +1,10 @@
 <?php
-class DateFormatter {
 
-    public static function getDateFromTimeStamp($timestamp){
+class DateFormatter
+{
+
+    public static function getDateFromTimeStamp($timestamp)
+    {
         $date = date_create($timestamp);
 
         //$topicPostDay = date('d', (strtotime($date)));
@@ -16,7 +19,23 @@ class DateFormatter {
             return date_format($date, 'j F Y');
         }
 
+    }
 
-}
+    public static function getPostDateFromTimeStamp($timestamp)
+    {
+        $date = date_create($timestamp);
+
+        $topicPostDay = $date->format('d');
+        $today = date('d');
+        if ($topicPostDay === $today) {
+
+            return 'Today, ' . date_format($date, 'H:i');
+        } else if ($topicPostDay == $today - 1) {
+            return 'Yesterday, ' . date_format($date, 'H:i');
+        } else {
+            return date_format($date, 'j F Y, H:i');
+        }
+
+    }
 
 }
