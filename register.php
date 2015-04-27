@@ -4,7 +4,7 @@ include 'connect.php';
 include 'header.php';
 
 if($_SERVER['REQUEST_METHOD'] != 'POST'){
-    if(empty($_SESSION)) {
+    if(!isset($_SESSION['logged_in'])) {
         echo '<h2>Sign up</h2>';
         echo '<form method="post" action="">
                <label for="user_name">Username: <span class="red"><sup>*</sup></span></label><input type="text" name="user_name"  required="required"/>
