@@ -40,6 +40,7 @@ if (!$result) {
     if ($result->num_rows == 0) {
         echo 'No topic.';
     } else {
+        echo '<a href="#bottom" class="post-button">Post a comment</a>';
         echo '<div id="topic">';
         $row = $result->fetch_assoc();
 
@@ -114,7 +115,8 @@ if (!$result) {
 
         <textarea name="post-content" placeholder="comment" maxlength="1000" required></textarea>
         <input type="submit" name="submit" value="Post comment" class="post-button"/>
-        <a href="index.php" class="post-button">View all topics</a>
+        <a href="index.php" name="bottom" class="post-button">View all topics</a>
+        <a href="#top" class="post-button">Go to the top</a>
     </form>
 
 <?php   

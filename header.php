@@ -18,7 +18,7 @@
 
         <nav id="menu">
             <ul>
-            <li><a class="item" href="index.php">Home</a></li>
+            <li><a class="item" href="index.php" name="top">Home</a></li>
             <li><a class="item" id="create-topic" href="create_topic.php">Create a topic</a></li>
             <li><a class="item" href="create_category.php">Create a category</a></li>
                 <?php

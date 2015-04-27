@@ -266,3 +266,6 @@ input.post-button{
     color: red;
 }
 
+a.post-button{
+    margin: 0px 0px 10px 0px;
+}
