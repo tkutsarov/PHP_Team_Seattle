@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') : ?>
         <?php endif; ?>
     <?php endif; ?>
 <?php else : ?>
-    <?php $cat_name = addslashes(htmlentities(trim($_POST['cat_name'])));
-    $cat_desc = addslashes(htmlentities(trim($_POST['cat_description'])));
+    <?php $cat_name = mysqli_real_escape_string($conn, (trim($_POST['cat_name'])));
+    $cat_desc = mysqli_real_escape_string($conn, (trim($_POST['cat_description'])));
     if (strlen($cat_name) == 0) : ?>
         <div id="result">
             <p>Category name cannot be empty. Please try again - <a href="create_category.php">Create a category</a>.</p>

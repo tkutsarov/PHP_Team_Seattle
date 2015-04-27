@@ -30,7 +30,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 
                     while ($row = $result->fetch_assoc()) {
 
-                        echo '<option value="' . $row['id'] . '">' . $row['cat_name'] . '</option>';
+                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['cat_name']) . '</option>';
 
                     }
 
@@ -51,8 +51,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 
     } else {
 
-        $subject = addslashes(htmlentities(trim($_POST['topic_subject'])));
-        $content = addslashes(htmlentities(trim($_POST['topic_content'])));
+        $subject = mysqli_real_escape_string($conn, (trim($_POST['topic_subject'])));
+        $content = mysqli_real_escape_string($conn, (trim($_POST['topic_content'])));
         if (strlen($subject) == 0) {
             echo 'Topic subject cannot be empty! Please try again - <a href="create_topic.php">Create a topic</a>.';
         } elseif (strlen($content) == 0) {
@@ -60,7 +60,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
         } else {
             $userId = $_SESSION['user_id'];
             $cat = $_POST['cat_selector'];
-            $tags = htmlentities(trim($_POST['topic_tags']));
+            $tags = mysqli_real_escape_string($conn, (trim($_POST['topic_tags'])));
             $conn->query("SET NAMES utf8");
             $conn->query("SET COLLATION_CONNECTION=utf8_bin");
             if (!isset($_SESSION['topic_subject'])) {

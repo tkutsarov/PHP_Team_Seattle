@@ -68,8 +68,8 @@ if (!$result) {
             if ($rowPost['post_by'] == GUESTID) {
                 $postedByGuest = $rowPost['guest'];
                 echo '<article class="post-content">' .
-                    '<div class="post-author guest-icon">' . $postedByGuest . '</div>' .
-                    '<span>' . $rowPost['post_content'] . '</span><div class="post-footer">'
+                    '<div class="post-author guest-icon">' . htmlspecialchars($postedByGuest) . '</div>' .
+                    '<span>' . htmlspecialchars($rowPost['post_content']) . '</span><div class="post-footer">'
                     . '<div class="post-data">' .
                     DateFormatter::getPostDateFromTimeStamp($rowPost['post_date']) . '</div></article>';
             } else {
@@ -87,8 +87,8 @@ if (!$result) {
 
 
                 echo '<article class="post-content">' .
-                    '<div class="post-author registered-icon">' . $rowPost['name'] . '</div>' .
-                    '<span>' . $rowPost['post_content'] . '</span><div class="post-footer">' .
+                    '<div class="post-author registered-icon">' . htmlspecialchars($rowPost['name']) . '</div>' .
+                    '<span>' . htmlspecialchars($rowPost['post_content']) . '</span><div class="post-footer">' .
                     '<div class="post-data">' .
                     DateFormatter::getPostDateFromTimeStamp($rowPost['post_date']) . '</div></article>';
             }
@@ -124,12 +124,12 @@ if (isset($_POST['submit'])) {
             echo 'Maximal lenght for comment is 1000 symbols';
         } else {
             $isUsernameValid = true;
-            $postContent = mysqli_real_escape_string($conn, htmlentities($_POST['post-content']));
+            $postContent = mysqli_real_escape_string($conn, $_POST['post-content']);
             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 $userID = $_SESSION['user_id'];
             } else {
-                $username = mysqli_real_escape_string($conn, htmlentities($_POST['username']));
-                $guestEmail = mysqli_real_escape_string($conn, htmlentities($_POST['email']));
+                $username = mysqli_real_escape_string($conn, $_POST['username']);
+                $guestEmail = mysqli_real_escape_string($conn, $_POST['email']);
                 if (strlen($username) > 50 || strlen($username) < 3) {
                     echo 'Username must be between 3 and 50 symbols.';
                     $isUsernameValid = false;

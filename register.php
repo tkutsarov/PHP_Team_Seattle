@@ -63,9 +63,9 @@ if($_SERVER['REQUEST_METHOD'] != 'POST'){
         }
         echo '</ul>';
     } else {       
-        $username = htmlentities(trim($_POST['user_name']));
-        $password = htmlentities(trim($_POST['user_pass']));
-        $email = htmlentities(trim($_POST['user_email']));
+        $username = mysqli_real_escape_string($conn, trim($_POST['user_name']));
+        $password = mysqli_real_escape_string($conn, trim($_POST['user_pass']));
+        $email = mysqli_real_escape_string($conn, trim($_POST['user_email']));
 
         $password = hash('sha256', $password);
                 
