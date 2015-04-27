@@ -122,6 +122,7 @@ if (!$result) {
     if(isset($_POST['submit'])){
         $post = str_replace(" ", "", $_POST['post-content']);
         if($post != ""){
+            // get different data if logged
             $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
             if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
                 $userID = $_SESSION['user_id'];
