@@ -124,8 +124,8 @@ h3 {margin: 0; padding: 0;}
 }
 #footer {
     clear: both;
-    font-size: 1rem;
-    color: rgba(0, 128, 87, 0.95);
+    font-size: 3rem;
+    color: #cd0a0a;
     padding: 3px 0 0 0;
 }
  
@@ -153,6 +153,7 @@ section.left-side{
 div.category-heading{
     color: #ffffff;
     background-color: #666666;
+    margin-top: 10px;
     font-size: 0.9rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -160,12 +161,25 @@ div.category-heading{
     padding: 5px;
     word-wrap: break-word;
 }
-div.category-description {
-    color: #444;
-    font-size: 0.8rem;
+div.topic-post-author {
     font-style: italic;
-    margin: 3px 0;
-    word-wrap: break-word;
+    margin: 3px 5px 5px 5px;
+    font-size: 0.8rem;
+    color: #444;
+}
+div.topic-post-heading {
+    color: #222222;
+    background-color: #dddddd;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    padding: 5px;
+}
+div.category-description {
+    color: #222;
+    font-size: 0.9rem;
+    margin: 10px 0;
+    padding: 10px;
 }
 
 div.topic-author {
@@ -211,10 +225,10 @@ article.topic-heading > a:before {
     content: url(../images/sticky.gif) " ";
 }
 
-div.post-content{
+article.post-content{
     width: 98%;
     font-size: 85%;
-    padding: 30px;
+    padding: 5px;
     color: black;
     border: 1px solid #cccccc;   
     line-height: 15px;
@@ -226,14 +240,32 @@ div.post-content{
 div.post-footer{
     margin-top:10px;
 }
-
-div.post-notation{
-    display: inline-block;
-    font-size: 80%;
+article.post-content > span {
     padding: 5px;
+}
+
+div.post-data {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 5px;
+    font-style: italic;
     line-height: 15px;
-    color: #00728B;      
+    color: #00728B;
     background-color: activecaption;
+}
+div.post-author {
+    display: block;
+    font-size: 1rem;
+    padding: 0px 5px 5px 30px;
+    line-height: 20px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+.guest-icon {
+    background: url(../images/icon_profile-guest.png) no-repeat 2px 1px;
+}
+.registered-icon {
+    background: url(../images/icon_profile.png) no-repeat 2px 1px;
 }
 
 a.post-button{
@@ -261,11 +293,14 @@ input.post-button{
     background-color: #1c94c4;
     color: #ffffff;   
 }
-
 .red {
     color: red;
 }
 
+<<<<<<< HEAD
 a.post-button{
     margin: 0px 0px 10px 0px;
 }
+=======
+
+>>>>>>> 2462f69d1df9265ead6ffa0430ee0619a44dcc71

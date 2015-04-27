@@ -24,11 +24,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                     echo "<h2>Create new topic<h2>";
                     echo '<form method="post"  >
                 <div>
-                    <label for="topic_subject">Subject:<span class="red"><sup>*</sup></span></label><input type="text" name="topic_subject" id="topic_subject" maxlength="100" required />
+                    <label for="topic_subject">Subject: <span class="red"><sup>*</sup></span></label><input type="text" name="topic_subject" id="topic_subject" maxlength="100" required="required"/>
                 </div>
                 <div>
-                    <label for="cat_selector">Select category:<span class="red"><sup>*</sup></span></label>
-                    <select name="cat_selector" id="cat_selector" required />';
+                    <label for="cat_selector">Select category: <span class="red"><sup>*</sup></span></label>
+                    <select name="cat_selector" id="cat_selector" required="required"/>';
 
                     while ($row = $result->fetch_assoc()) {
 
@@ -38,7 +38,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 
                     echo '</select></div>
                 <div>
-                    <label for="topic_content">Theme:<span class="red"><sup>*</sup></span></label><textarea type="text" name="topic_content" id="topic_content" maxlength="2048" required></textarea>
+                    <label for="topic_content">Theme: <span class="red"><sup>*</sup></span></label><textarea type="text" name="topic_content" id="topic_content" maxlength="2048" required="required"></textarea>
                 </div>
                 <div class="tags">
                     <label for="topic_tags">Tags: </label><input type="text" name="topic_tags" id="topic_tags" maxlength="50"/>
@@ -52,9 +52,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             }
 
     } else {
+
         $subject = addslashes(htmlentities(trim($_POST['topic_subject'])));
         $content = addslashes(htmlentities(trim($_POST['topic_content'])));
-        if(strlen($subject) == 0) {
+        if (strlen($subject) == 0) {
             echo 'Topic subject cannot be empty! Please try again - <a href="create_topic.php">Create a topic</a>.';
         } elseif (strlen($content) == 0) {
             echo 'Topic description cannot be empty! Please try again - <a href="create_topic.php">Create a topic</a>.';
@@ -64,26 +65,27 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             $tags = htmlentities(trim($_POST['topic_tags']));
             $conn->query("SET NAMES utf8");
             $conn->query("SET COLLATION_CONNECTION=utf8_bin");
+            $_SESSION['topic_subject'] = '';
             if ($_SESSION['topic_subject'] != $subject) {
 
-            $sql = "INSERT INTO topics (
+                $sql = "INSERT INTO topics (
                     topic_subject,
                     topic_description,
                     topic_cat,
                     topic_by,
                     topic_tags) VALUES('$subject', '$content', '$cat', '$userId', '$tags')";
-            $result = $conn->query($sql);
-            $_SESSION['topic_subject'] = $subject;
+                $result = $conn->query($sql);
+                $_SESSION['topic_subject'] = $subject;
 
-            if (!$result) {
-                echo 'Could not create topic. Please try again.' . $conn->error;
+                if (!$result) {
+                    echo 'Could not create topic. Please try again.' . $conn->error;
+                } else {
+
+                    echo 'You have successfully created topic.';
+                }
             } else {
-
-                echo 'You have successfully created topic.';
+                echo 'Topic already created!';
             }
-        } else {
-            echo 'Topic already created!';
-        }
         }
     }
 

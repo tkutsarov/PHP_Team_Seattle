@@ -2,9 +2,7 @@
 </main><!-- content -->
 </div><!-- wrapper -->
 
-<footer id="footer">
-    <div>PHP team project</div>
-</footer>
+<footer id="footer">FOOTER TODO</footer>
 </body>
 </html>
 
