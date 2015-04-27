@@ -158,12 +158,14 @@ div.category-heading{
     text-transform: uppercase;
     box-sizing: border-box;
     padding: 5px;
+    word-wrap: break-word;
 }
 div.category-description {
     color: #444;
     font-size: 0.8rem;
     font-style: italic;
     margin: 3px 0;
+    word-wrap: break-word;
 }
 
 div.topic-author {
@@ -193,6 +195,7 @@ article.topic-heading {
 }
 article.topic-heading:last-child {
     border-bottom: 1px solid #cccccc;;
+    word-wrap: break-word;
 }
 
 article.topic-heading:hover{

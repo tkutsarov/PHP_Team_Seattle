@@ -122,32 +122,44 @@ if (!$result) {
     if(isset($_POST['submit'])){
         $post = str_replace(" ", "", $_POST['post-content']);
         if($post != ""){
-            // get different data if logged
-            $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
-            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                $userID = $_SESSION['user_id'];
+            if(strlen($post) > 1000){
+                echo 'Maximal lenght for comment is 1000 symbols';               
             } else{
-                $username = mysql_real_escape_string(htmlentities($_POST['username']));
-                $guestEmail = mysql_real_escape_string(htmlentities($_POST['email']));
-            }
-            
-            $conn->query("SET NAMES utf8");
-            $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
-                    . "VALUES ('$postContent', '$topicID', '$userID')";
-            } else{
-                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
-                    . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
-            }
-            
-            $resultPostInsert = $conn->query($sqlPostInsert);
-            
-            if(!$resultPostInsert){
-                echo 'Could not create post. Please try again.' . $conn->error;
-            }else{
-                header('Location: posts_view.php');
-            }
+                $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
+                if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                    $userID = $_SESSION['user_id'];
+                } else{
+                    $username = mysql_real_escape_string(htmlentities($_POST['username']));
+                    $guestEmail = mysql_real_escape_string(htmlentities($_POST['email']));
+                    
+                    if(strlen($username) > 50){
+                        echo 'Maximal lenght for username is 50 symbols';               
+                    } else if(strlen($guestEmail) > 255){
+                        echo 'Maximal lenght for email is 255 symbols';
+                    } else{
+                        $conn->query("SET NAMES utf8");
+                        $conn->query("SET COLLATION_CONNECTION=utf8_bin");
+                        if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                            $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
+                                . "VALUES ('$postContent', '$topicID', '$userID')";
+                        } else{
+                            $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
+                                . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
+                        }
+
+                        $resultPostInsert = $conn->query($sqlPostInsert);
+
+                        if(!$resultPostInsert){
+                            echo 'Could not create post. Please try again.' . $conn->error;
+                        }else{
+                            header('Location: posts_view.php');
+                        }
+                    }
+                    
+                }
+
+                
+            }           
         }
     }
     
