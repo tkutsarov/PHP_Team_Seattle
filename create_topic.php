@@ -24,11 +24,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
                     echo "<h2>Create new topic<h2>";
                     echo '<form method="post"  >
                 <div>
-                    <label for="topic_subject">Subject: </label><input type="text" name="topic_subject" id="topic_subject" maxlength="100"/>
+                    <label for="topic_subject">Subject:<span class="red"><sup>*</sup></span></label><input type="text" name="topic_subject" id="topic_subject" maxlength="100" required />
                 </div>
                 <div>
-                    <label for="cat_selector">Select category: </label>
-                    <select name="cat_selector" id="cat_selector" />';
+                    <label for="cat_selector">Select category:<span class="red"><sup>*</sup></span></label>
+                    <select name="cat_selector" id="cat_selector" required />';
 
                     while ($row = $result->fetch_assoc()) {
 
@@ -38,7 +38,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 
                     echo '</select></div>
                 <div>
-                    <label for="topic_content">Theme: </label><textarea type="text" name="topic_content" id="topic_content" maxlength="2048"></textarea>
+                    <label for="topic_content">Theme:<span class="red"><sup>*</sup></span></label><textarea type="text" name="topic_content" id="topic_content" maxlength="2048" required></textarea>
                 </div>
                 <div class="tags">
                     <label for="topic_tags">Tags: </label><input type="text" name="topic_tags" id="topic_tags" maxlength="50"/>

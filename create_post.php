@@ -6,16 +6,16 @@ define('GUESTID', 21);
     <?php
     // If the user is logged in, get the username and email and fill them in automaticly
     if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-        echo '<input type="text" name="username" value="' . $_SESSION['user_name'] . '" readonly/>';
-        echo '<input type="text" name="email" value="' . $_SESSION['user_email'] . '" readonly/>';
+        echo '<input type="text" name="username" value="' . $_SESSION['user_name'] . '" readonly required />';
+        echo '<input type="text" name="email" value="' . $_SESSION['user_email'] . '" readonly />';
     } else{
         // If the user is a guest, get the username and email from the filled in fields
-        echo '<input type="text" name="username" placeholder="username" required="required"/>';
-        echo '<input type="email" name="email" placeholder="email" />';
+        echo '<input type="text" name="username" placeholder="username" required="required" />';
+        echo '<input type="email" name="email" placeholder="email (optional)" />';
     }
     ?>
 
-    <textarea name="post-content" placeholder="comment"></textarea>
+    <textarea name="post-content" placeholder="comment" required></textarea>
     <input type="submit" name="submit" placeholder="Post comment"/>
     <a href="index.php">View all topics</a>
 </form>

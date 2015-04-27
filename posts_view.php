@@ -108,11 +108,11 @@ if (!$result) {
             } else {
                 // If the user is a guest, get the username and email from the filled in fields
                 echo '<input type="text" name="username" placeholder="username" required="required"/>';
-                echo '<input type="email" name="email" placeholder="email" />';
+                echo '<input type="email" name="email" placeholder="email(optional)" />';
             }
         ?>
 
-        <textarea name="post-content" placeholder="comment"></textarea>
+        <textarea name="post-content" placeholder="comment" required></textarea>
         <input type="submit" name="submit" value="Post comment" class="post-button"/>
         <a href="index.php" class="post-button">View all topics</a>
     </form>
@@ -122,37 +122,31 @@ if (!$result) {
     if(isset($_POST['submit'])){
         $post = str_replace(" ", "", $_POST['post-content']);
         if($post != ""){
-            /*if (preg_match("/^[a-zA-Z\\p{Cyrillic}0-9\\s\\-]+$/u", $_POST['post-content']) &&
-                  preg_match("/^[a-zA-Z\\p{Cyrillic}0-9\\s\\-]+$/u", $_POST['username']) &&
-                    preg_match("/^[a-zA-Z\\p{Cyrillic}0-9\\s\\-]+$/u", $_POST['email'])){*/
-                $postContent = $_POST['post-content'];
-                if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                    $userID = $_SESSION['user_id'];
-                } else{
-                    $username = $_POST['username'];
-                    $guestEmail = $_POST['email'];
-                }
-
-                $conn->query("SET NAMES utf8");
-                $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-                if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                    $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
-                        . "VALUES ('$postContent', '$topicID', '$userID')";
-                } else{
-                    $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
-                        . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
-                }
-
-                $resultPostInsert = $conn->query($sqlPostInsert);
-
-                if(!$resultPostInsert){
-                    echo 'Could not create post. Please try again.' . $conn->error;
-                }else{
-                    header('Location: posts_view.php');
-                }
+            $postContent = $_POST['post-content'];
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                $userID = $_SESSION['user_id'];
             } else{
-                echo 'The data you provide must start with a letter or a digit!';
-            /*}  */       
+                $username = $_POST['username'];
+                $guestEmail = $_POST['email'];
+            }
+            
+            $conn->query("SET NAMES utf8");
+            $conn->query("SET COLLATION_CONNECTION=utf8_bin");
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
+                    . "VALUES ('$postContent', '$topicID', '$userID')";
+            } else{
+                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
+                    . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
+            }
+            
+            $resultPostInsert = $conn->query($sqlPostInsert);
+            
+            if(!$resultPostInsert){
+                echo 'Could not create post. Please try again.' . $conn->error;
+            }else{
+                header('Location: posts_view.php');
+            }
         }
     }
     
