@@ -64,13 +64,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             $tags = htmlentities(trim($_POST['topic_tags']));
             $conn->query("SET NAMES utf8");
             $conn->query("SET COLLATION_CONNECTION=utf8_bin");
+            if ($_SESSION['topic_subject'] != $subject) {
+
             $sql = "INSERT INTO topics (
-                topic_subject,
-                topic_description,
-                topic_cat,
-                topic_by,
-                topic_tags) VALUES('$subject', '$content', '$cat', '$userId', '$tags')";
+                    topic_subject,
+                    topic_description,
+                    topic_cat,
+                    topic_by,
+                    topic_tags) VALUES('$subject', '$content', '$cat', '$userId', '$tags')";
             $result = $conn->query($sql);
+            $_SESSION['topic_subject'] = $subject;
 
             if (!$result) {
                 echo 'Could not create topic. Please try again.' . $conn->error;
@@ -78,6 +81,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 
                 echo 'You have successfully created topic.';
             }
+        } else {
+            echo 'Topic already created!';
+        }
         }
     }
 
