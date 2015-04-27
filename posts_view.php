@@ -45,12 +45,7 @@ if (!$result) {
     if ($result->num_rows == 0) {
         echo 'No topic.';
     } else {
-
-        echo '<a href="#bottom" class="post-button">Post a comment</a>';
-        echo '<div id="topic">';
-
         echo '<section id="topic">';
-
         $row = $result->fetch_assoc();
 
         echo '<div class="topic-post-heading">' . $row['topic_subject'] . '</div>';
@@ -137,18 +132,24 @@ if (isset($_POST['submit'])) {
         if (strlen($post) > 1000) {
             echo 'Maximal lenght for comment is 1000 symbols';
         } else {
+            $isUsernameValid = true;
             $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 $userID = $_SESSION['user_id'];
             } else {
                 $username = mysql_real_escape_string(htmlentities($_POST['username']));
                 $guestEmail = mysql_real_escape_string(htmlentities($_POST['email']));
+                if (strlen($username) > 50 || strlen($username) < 3) {
+                    echo 'Username must be between 3 and 50 symbols.';
+                    $isUsernameValid = false;
+                } else if (strlen($guestEmail) > 255) {
+                    echo 'Maximal lenght for email is 255 symbols.';
+                    $isUsernameValid = false;
+                }
             }
-            if (strlen($username) > 50) {
-                echo 'Maximal lenght for username is 50 symbols';
-            } else if (strlen($guestEmail) > 255) {
-                echo 'Maximal lenght for email is 255 symbols';
-            } else {
+
+
+            if ($isUsernameValid){
                 $conn->query("SET NAMES utf8");
                 $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
@@ -170,51 +171,7 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-?>
-    
-
-<?php   
-    // If the user is logged in, insert the post in posts table with his/hers data  
-    if(isset($_POST['submit'])){
-        $post = str_replace(" ", "", $_POST['post-content']);
-        if($post != ""){
-            if(strlen($post) > 1000){
-                echo 'Maximal lenght for comment is 1000 symbols';               
-            } else{
-                $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
-                if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                    $userID = $_SESSION['user_id'];                    
-                } else{
-                    $username = mysql_real_escape_string(htmlentities($_POST['username']));
-                    $guestEmail = mysql_real_escape_string(htmlentities($_POST['email']));
-                }    
-                if(strlen($username) > 50){
-                    echo 'Maximal lenght for username is 50 symbols';               
-                } else if(strlen($guestEmail) > 255){
-                    echo 'Maximal lenght for email is 255 symbols';
-                } else{
-                    $conn->query("SET NAMES utf8");
-                    $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-                    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                        $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
-                            . "VALUES ('$postContent', '$topicID', '$userID')";
-
-                    } else{
-                        $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
-                            . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
-                    }
-                    
-                    $resultPostInsert = $conn->query($sqlPostInsert);
-
-                    if(!$resultPostInsert){
-                        echo 'Could not create post. Please try again.' . $conn->error;
-                    }else{
-                        header('Location: posts_view.php');
-                    }                                 
-                }                
-            }           
-        }
-    }    
 
 include 'footer.php';
 ?>
+
