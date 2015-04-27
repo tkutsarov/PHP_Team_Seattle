@@ -137,13 +137,7 @@ h3 {margin: 0; padding: 0;}
 #footer > div{
     width: 100%;
 }
-
- #footSprite{
-     
-     width: 28px;
-     height: 26px;
- }
-
+ 
 .topic-post {
     height: 100px;
     overflow: auto;
@@ -254,7 +248,6 @@ article.post-content{
 
 div.post-footer{
     margin-top:10px;
-
 }
 article.post-content > span {
     padding: 5px;
@@ -314,6 +307,3 @@ input.post-button{
 }
 
 
-a.post-button{
-    margin: 0px 0px 10px 0px;
-}

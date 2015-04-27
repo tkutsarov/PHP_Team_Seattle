@@ -55,8 +55,8 @@ $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                 while($rowTopic = $resultTopics->fetch_assoc()){    
                     $date = DateFormatter::getDateFromTimeStamp($rowTopic['topic_date']);
                     echo '<article class="topic-heading"><a href="posts_view.php?id=' . $rowTopic['id'] . '">' .
-                            $rowTopic['topic_subject'] . '</a><div class="topic-date">'. $date . '</div>' .
-                        '<div class="topic-author">created by: ' .$rowTopic['name'] . '</div></article>';
+                            htmlspecialchars($rowTopic['topic_subject']) . '</a><div class="topic-date">'. $date . '</div>' .
+                        '<div class="topic-author">created by: ' .htmlspecialchars($rowTopic['name']) . '</div></article>';
 
                 }
                 echo '</section>';
