@@ -107,12 +107,12 @@ if (!$result) {
                 echo '<input type="text" name="email" value="' . $_SESSION['user_email'] . '" readonly/>';
             } else {
                 // If the user is a guest, get the username and email from the filled in fields
-                echo '<input type="text" name="username" placeholder="username" required="required"/>';
-                echo '<input type="email" name="email" placeholder="email(optional)" />';
+                echo '<input type="text" name="username" placeholder="username" maxlength="50" required/>';
+                echo '<input type="email" name="email" placeholder="email(optional)" maxlength="255"/>';
             }
         ?>
 
-        <textarea name="post-content" placeholder="comment" required></textarea>
+        <textarea name="post-content" placeholder="comment" maxlength="1000" required></textarea>
         <input type="submit" name="submit" value="Post comment" class="post-button"/>
         <a href="index.php" class="post-button">View all topics</a>
     </form>
@@ -127,34 +127,34 @@ if (!$result) {
             } else{
                 $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
                 if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                    $userID = $_SESSION['user_id'];
+                    $userID = $_SESSION['user_id'];                    
                 } else{
                     $username = mysql_real_escape_string(htmlentities($_POST['username']));
                     $guestEmail = mysql_real_escape_string(htmlentities($_POST['email']));
-                    
-                    if(strlen($username) > 50){
-                        echo 'Maximal lenght for username is 50 symbols';               
-                    } else if(strlen($guestEmail) > 255){
-                        echo 'Maximal lenght for email is 255 symbols';
+                }    
+                if(strlen($username) > 50){
+                    echo 'Maximal lenght for username is 50 symbols';               
+                } else if(strlen($guestEmail) > 255){
+                    echo 'Maximal lenght for email is 255 symbols';
+                } else{
+                    $conn->query("SET NAMES utf8");
+                    $conn->query("SET COLLATION_CONNECTION=utf8_bin");
+                    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                        $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
+                            . "VALUES ('$postContent', '$topicID', '$userID')";
+
                     } else{
-                        $conn->query("SET NAMES utf8");
-                        $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-                        if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                            $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
-                                . "VALUES ('$postContent', '$topicID', '$userID')";
-                        } else{
-                            $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
-                                . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
-                        }
+                        $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
+                            . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
+                    }
+                    
+                    $resultPostInsert = $conn->query($sqlPostInsert);
 
-                        $resultPostInsert = $conn->query($sqlPostInsert);
-
-                        if(!$resultPostInsert){
-                            echo 'Could not create post. Please try again.' . $conn->error;
-                        }else{
-                            header('Location: posts_view.php');
-                        }
-                    }                   
+                    if(!$resultPostInsert){
+                        echo 'Could not create post. Please try again.' . $conn->error;
+                    }else{
+                        header('Location: posts_view.php');
+                    }                                 
                 }                
             }           
         }
