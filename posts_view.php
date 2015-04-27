@@ -122,12 +122,12 @@ if (!$result) {
     if(isset($_POST['submit'])){
         $post = str_replace(" ", "", $_POST['post-content']);
         if($post != ""){
-            $postContent = $_POST['post-content'];
+            $postContent = mysql_real_escape_string(htmlentities($_POST['post-content']));
             if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
                 $userID = $_SESSION['user_id'];
             } else{
-                $username = $_POST['username'];
-                $guestEmail = $_POST['email'];
+                $username = mysql_real_escape_string(htmlentities($_POST['username']));
+                $guestEmail = mysql_real_escape_string(htmlentities($_POST['email']));
             }
             
             $conn->query("SET NAMES utf8");
