@@ -124,8 +124,8 @@ h3 {margin: 0; padding: 0;}
 }
 #footer {
     clear: both;
-    font-size: 3rem;
-    color: #cd0a0a;
+    font-size: 1rem;
+    color: rgba(0, 128, 87, 0.95);
     padding: 3px 0 0 0;
 }
  
