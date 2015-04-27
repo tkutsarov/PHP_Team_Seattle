@@ -45,12 +45,12 @@ if (!$result) {
     if ($result->num_rows == 0) {
         echo 'No topic.';
     } else {
-<<<<<<< HEAD
+
         echo '<a href="#bottom" class="post-button">Post a comment</a>';
         echo '<div id="topic">';
-=======
+
         echo '<section id="topic">';
->>>>>>> 2462f69d1df9265ead6ffa0430ee0619a44dcc71
+
         $row = $result->fetch_assoc();
 
         echo '<div class="topic-post-heading">' . $row['topic_subject'] . '</div>';
@@ -167,14 +167,11 @@ if (isset($_POST['submit'])) {
                     header('Location: posts_view.php');
                 }
             }
-<<<<<<< HEAD
-        ?>
-
-        <textarea name="post-content" placeholder="comment" maxlength="1000" required></textarea>
-        <input type="submit" name="submit" value="Post comment" class="post-button"/>
-        <a href="index.php" name="bottom" class="post-button">View all topics</a>
-        <a href="#top" class="post-button">Go to the top</a>
-    </form>
+        }
+    }
+}
+?>
+    
 
 <?php   
     // If the user is logged in, insert the post in posts table with his/hers data  
@@ -216,12 +213,8 @@ if (isset($_POST['submit'])) {
                     }                                 
                 }                
             }           
-=======
->>>>>>> 2462f69d1df9265ead6ffa0430ee0619a44dcc71
         }
-    }
-}
+    }    
 
 include 'footer.php';
 ?>
-
