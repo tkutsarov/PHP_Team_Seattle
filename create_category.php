@@ -26,23 +26,22 @@ if($_SERVER['REQUEST_METHOD'] != 'POST') : ?>
         <?php endif; ?>
     <?php endif; ?>
 <?php else : ?>
-    <?php if(empty($_POST['cat_name'])) : ?>
+    <?php $cat_name = addslashes(htmlentities(trim($_POST['cat_name'])));
+    $cat_desc = addslashes(htmlentities(trim($_POST['cat_description'])));
+    if(strlen($cat_name) == 0) : ?>
         <div id="result">
-            <p>Category name cannot be empty.</p>
+            <p>Category name cannot be empty. Please try again - <a href="create_category.php">Create a category</a>.</p>
         </div>
-    <?php elseif (empty($_POST['cat_description'])) : ?>
+    <?php elseif (strlen($cat_desc) == 0) : ?>
         <div id="result">
-            <p>Category description cannot be empty.</p>
+            <p>Category description cannot be empty. Please try again - <a href="create_category.php">Create a category</a>.</p>
         </div>
     <?php else : ?>
-        <?php $cat_name = addslashes(htmlentities(trim($_POST['cat_name'])));
-        $cat_desc = addslashes(htmlentities(trim($_POST['cat_description'])));
-        $conn->query("SET NAMES utf8");
+        <?php $conn->query("SET NAMES utf8");
         $conn->query("SET COLLATION_CONNECTION=utf8_bin");
         $sql = "INSERT INTO categories(cat_name, cat_description) VALUES ('$cat_name', '$cat_desc')";
         //var_dump($sql);
-        ?>
-        <?php if($conn->query($sql) === TRUE): ?>
+        if($conn->query($sql) === TRUE): ?>
             <div id="result">
                 <p>Category has been successfully created.</p>
             </div>

@@ -52,15 +52,19 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             }
 
     } else {
-
-            $subject = addslashes(htmlentities(trim($_POST['topic_subject'])));
-            $content = addslashes(htmlentities(trim($_POST['topic_content'])));
+        $subject = addslashes(htmlentities(trim($_POST['topic_subject'])));
+        $content = addslashes(htmlentities(trim($_POST['topic_content'])));
+        if(strlen($subject) == 0) {
+            echo 'Topic subject cannot be empty! Please try again - <a href="create_topic.php">Create a topic</a>.';
+        } elseif (strlen($content) == 0) {
+            echo 'Topic description cannot be empty! Please try again - <a href="create_topic.php">Create a topic</a>.';
+        } else {
             $userId = $_SESSION['user_id'];
             $cat = $_POST['cat_selector'];
             $tags = htmlentities(trim($_POST['topic_tags']));
             $conn->query("SET NAMES utf8");
             $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-        if ($_SESSION['topic_subject'] != $subject) {
+            if ($_SESSION['topic_subject'] != $subject) {
 
             $sql = "INSERT INTO topics (
                     topic_subject,
@@ -79,6 +83,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
             }
         } else {
             echo 'Topic already created!';
+        }
         }
     }
 
