@@ -30,7 +30,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
 
                     while ($row = $result->fetch_assoc()) {
 
-                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['cat_name']) . '</option>';
+                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars(stripcslashes($row['cat_name'])) . '</option>';
 
                     }
 

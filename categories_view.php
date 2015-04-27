@@ -30,8 +30,8 @@ $conn->query("SET COLLATION_CONNECTION=utf8_bin");
             {               
                 
                 echo '<section class="left-side">';
-                echo '<div class="category-heading">' . $row['cat_name'] . '</div>';
-                echo '<div class="category-description">' . $row['cat_description'] . '</div>';
+                echo '<div class="category-heading">' . htmlspecialchars(stripcslashes($row['cat_name'])) . '</div>';
+                echo '<div class="category-description">' . htmlspecialchars(stripcslashes($row['cat_description'])) . '</div>';
                 $conn->query("SET NAMES utf8");
                 $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                 $sqlTopics = "SELECT
@@ -55,8 +55,8 @@ $conn->query("SET COLLATION_CONNECTION=utf8_bin");
                 while($rowTopic = $resultTopics->fetch_assoc()){    
                     $date = DateFormatter::getDateFromTimeStamp($rowTopic['topic_date']);
                     echo '<article class="topic-heading"><a href="posts_view.php?id=' . $rowTopic['id'] . '">' .
-                            htmlspecialchars($rowTopic['topic_subject']) . '</a><div class="topic-date">'. $date . '</div>' .
-                        '<div class="topic-author">created by: ' .htmlspecialchars($rowTopic['name']) . '</div></article>';
+                            htmlspecialchars(stripcslashes($rowTopic['topic_subject'])) . '</a><div class="topic-date">'. $date . '</div>' .
+                        '<div class="topic-author">created by: ' .htmlspecialchars(stripcslashes($rowTopic['name'])) . '</div></article>';
 
                 }
                 echo '</section>';

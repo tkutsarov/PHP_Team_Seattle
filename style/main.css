@@ -305,5 +305,8 @@ input.post-button{
 .red {
     color: red;
 }
-
+#footSprite {
+    width: 25px;
+    height: 30px;
+}
 

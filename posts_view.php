@@ -69,7 +69,7 @@ if (!$result) {
                 $postedByGuest = $rowPost['guest'];
                 echo '<article class="post-content">' .
                     '<div class="post-author guest-icon">' . htmlspecialchars($postedByGuest) . '</div>' .
-                    '<span>' . htmlspecialchars($rowPost['post_content']) . '</span><div class="post-footer">'
+                    '<span>' . htmlspecialchars(stripcslashes($rowPost['post_content'])) . '</span><div class="post-footer">'
                     . '<div class="post-data">' .
                     DateFormatter::getPostDateFromTimeStamp($rowPost['post_date']) . '</div></article>';
             } else {
@@ -88,7 +88,7 @@ if (!$result) {
 
                 echo '<article class="post-content">' .
                     '<div class="post-author registered-icon">' . htmlspecialchars($rowPost['name']) . '</div>' .
-                    '<span>' . htmlspecialchars($rowPost['post_content']) . '</span><div class="post-footer">' .
+                    '<span>' . htmlspecialchars(stripcslashes($rowPost['post_content'])) . '</span><div class="post-footer">' .
                     '<div class="post-data">' .
                     DateFormatter::getPostDateFromTimeStamp($rowPost['post_date']) . '</div></article>';
             }
