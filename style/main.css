@@ -211,12 +211,13 @@ article.topic-heading > a:before {
 div.post-content{
     width: 98%;
     font-size: 85%;
-    padding: 5px;
+    padding: 30px;
     color: black;
     border: 1px solid #cccccc;   
     line-height: 15px;
     background-color: #ffffff;
     word-wrap: break-word;
+    box-sizing: border-box;
 }
 
 div.post-footer{
@@ -225,7 +226,7 @@ div.post-footer{
 
 div.post-notation{
     display: inline-block;
-    font-size: 70%;
+    font-size: 80%;
     padding: 5px;
     line-height: 15px;
     color: #00728B;      

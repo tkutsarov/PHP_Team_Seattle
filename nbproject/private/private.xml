@@ -3,18 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/register.php</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/create_category.php</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/js/register.js</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/footer.php</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/search_topic.php</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/style/main.css</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/header.php</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/categories_view.php</file>
             <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/connect.php</file>
-            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/index.php</file>
             <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/login.php</file>
             <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/logout.php</file>
-            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/header.php</file>
-            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/create_category.php</file>
             <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/create_topic.php</file>
-            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/style/main.css</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/index.php</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/posts_view.php</file>
+            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/register.php</file>
             <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/style/create_topic.css</file>
-            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/categories_view.php</file>
-            <file>file:/C:/xampp/htdocs/PHP_Team_Seattle/footer.php</file>
         </group>
     </open-files>
 </project-private>

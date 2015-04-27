@@ -122,31 +122,37 @@ if (!$result) {
     if(isset($_POST['submit'])){
         $post = str_replace(" ", "", $_POST['post-content']);
         if($post != ""){
-            $postContent = $_POST['post-content'];
-            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                $userID = $_SESSION['user_id'];
+            /*if (preg_match("/^[a-zA-Z\\p{Cyrillic}0-9\\s\\-]+$/u", $_POST['post-content']) &&
+                  preg_match("/^[a-zA-Z\\p{Cyrillic}0-9\\s\\-]+$/u", $_POST['username']) &&
+                    preg_match("/^[a-zA-Z\\p{Cyrillic}0-9\\s\\-]+$/u", $_POST['email'])){*/
+                $postContent = $_POST['post-content'];
+                if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                    $userID = $_SESSION['user_id'];
+                } else{
+                    $username = $_POST['username'];
+                    $guestEmail = $_POST['email'];
+                }
+
+                $conn->query("SET NAMES utf8");
+                $conn->query("SET COLLATION_CONNECTION=utf8_bin");
+                if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                    $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
+                        . "VALUES ('$postContent', '$topicID', '$userID')";
+                } else{
+                    $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
+                        . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
+                }
+
+                $resultPostInsert = $conn->query($sqlPostInsert);
+
+                if(!$resultPostInsert){
+                    echo 'Could not create post. Please try again.' . $conn->error;
+                }else{
+                    header('Location: posts_view.php');
+                }
             } else{
-                $username = $_POST['username'];
-                $guestEmail = $_POST['email'];
-            }
-            
-            $conn->query("SET NAMES utf8");
-            $conn->query("SET COLLATION_CONNECTION=utf8_bin");
-            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
-                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by)"
-                    . "VALUES ('$postContent', '$topicID', '$userID')";
-            } else{
-                $sqlPostInsert = "INSERT INTO posts (post_content, post_topic, post_by, guest, guest_email)"
-                    . "VALUES ('$postContent', '$topicID', ". GUESTID .", '$username', '$guestEmail')";
-            }
-            
-            $resultPostInsert = $conn->query($sqlPostInsert);
-            
-            if(!$resultPostInsert){
-                echo 'Could not create post. Please try again.' . $conn->error;
-            }else{
-                header('Location: posts_view.php');
-            }
+                echo 'The data you provide must start with a letter or a digit!';
+            /*}  */       
         }
     }
     
